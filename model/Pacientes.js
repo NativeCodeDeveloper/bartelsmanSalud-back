@@ -14,7 +14,15 @@ export default class Pacientes {
         telefono,
         correo,
         direccion,
-        pais
+        pais,
+        observacion1,
+        observacion2,
+        observacion3,
+        apoderado,
+        apoderado_rut,
+        medicamentosUsados,
+        habitos,
+        comentariosAdicionales
     ) {
         this.id_paciente = id_paciente;
         this.estado_paciente = estado_paciente;
@@ -28,6 +36,14 @@ export default class Pacientes {
         this.correo = correo;
         this.direccion = direccion;
         this.pais = pais;
+        this.observacion1 = observacion1;
+        this.observacion2 = observacion2;
+        this.observacion3 = observacion3;
+        this.apoderado = apoderado;
+        this.apoderado_rut = apoderado_rut;
+        this.medicamentosUsados = medicamentosUsados;
+        this.habitos = habitos;
+        this.comentariosAdicionales = comentariosAdicionales;
     }
 
 
@@ -100,10 +116,10 @@ export default class Pacientes {
 
 
 // ACTUALIZACION DE PACIENTE POR ID
-    async updatePaciente(nombre,apellido,rut,nacimiento,sexo,prevision_id,telefono,correo,direccion,pais,id_paciente){
+    async updatePaciente(nombre,apellido,rut,nacimiento,sexo,prevision_id,telefono,correo,direccion,pais,observacion1,observacion2,observacion3,apoderado,apoderado_rut,medicamentosUsados,habitos,comentariosAdicionales,id_paciente){
         const conexion = DataBase.getInstance();
-        const query = 'UPDATE pacienteDatos SET nombre= ? ,apellido = ? , rut = ?, nacimiento = ?, sexo = ?, prevision_id = ?, telefono = ?, correo = ? , direccion = ?, pais = ?  WHERE id_paciente = ?';
-        const param = [nombre,apellido,rut,nacimiento,sexo,prevision_id,telefono,correo,direccion,pais,id_paciente ];
+        const query = 'UPDATE pacienteDatos SET nombre= ? ,apellido = ? , rut = ?, nacimiento = ?, sexo = ?, prevision_id = ?, telefono = ?, correo = ? , direccion = ?, pais = ?, observacion1 = ?, observacion2 = ?, observacion3 = ?, apoderado = ?, apoderado_rut = ?, medicamentosUsados = ?, habitos = ?, comentariosAdicionales = ? WHERE id_paciente = ?';
+        const param = [nombre,apellido,rut,nacimiento,sexo,prevision_id,telefono,correo,direccion,pais,observacion1,observacion2,observacion3,apoderado,apoderado_rut,medicamentosUsados,habitos,comentariosAdicionales,id_paciente ];
         try {
             const resultado = await conexion.ejecutarQuery(query,param);
             if (resultado) {
@@ -117,9 +133,9 @@ export default class Pacientes {
 
 
 // INSERCION DE NUEVO PACIENTE EN LA BASE DE DATOS
-    async insertPaciente(nombre,apellido,rut,nacimiento,sexo,prevision_id,telefono,correo,direccion,pais){
+    async insertPaciente(nombre,apellido,rut,nacimiento,sexo,prevision_id,telefono,correo,direccion,pais,observacion1,observacion2,observacion3,apoderado,apoderado_rut,medicamentosUsados,habitos,comentariosAdicionales){
         const conexion = DataBase.getInstance();
-        const query = 'INSERT INTO pacienteDatos (nombre,apellido,rut,nacimiento,sexo,prevision_id,telefono,correo,direccion,pais) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)';
+        const query = 'INSERT INTO pacienteDatos (nombre,apellido,rut,nacimiento,sexo,prevision_id,telefono,correo,direccion,pais,observacion1,observacion2,observacion3,apoderado,apoderado_rut,medicamentosUsados,habitos,comentariosAdicionales) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)';
         const param = [
             nombre,
             apellido,
@@ -130,7 +146,15 @@ export default class Pacientes {
             telefono,
             correo,
             direccion,
-            pais];
+            pais,
+            observacion1,
+            observacion2,
+            observacion3,
+            apoderado,
+            apoderado_rut,
+            medicamentosUsados,
+            habitos,
+            comentariosAdicionales];
 
         try {
             const resultado = await conexion.ejecutarQuery(query,param);
@@ -171,7 +195,7 @@ export default class Pacientes {
 
 
 // INSERCION DE NUEVO PACIENTE EN LA BASE DE DATOS
-    async insertPacientemp(nombre,apellido,rut,nacimiento,sexo,prevision_id,telefono,correo,direccion,pais){
+    async insertPacientemp(nombre,apellido,rut,nacimiento,sexo,prevision_id,telefono,correo,direccion,pais,observacion1 = null,observacion2 = null,observacion3 = null,apoderado = null,apoderado_rut = null,medicamentosUsados = null,habitos = null,comentariosAdicionales = null){
         const conexion = DataBase.getInstance();
 
         try {
@@ -185,8 +209,8 @@ export default class Pacientes {
                 return { duplicado: true };
             }else{
 
-                const query = 'INSERT INTO pacienteDatos (nombre,apellido,rut,nacimiento,sexo,prevision_id,telefono,correo,direccion,pais) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)';
-                const param = [nombre, apellido, rut, nacimiento, sexo, prevision_id, telefono, correo, direccion, pais];
+                const query = 'INSERT INTO pacienteDatos (nombre,apellido,rut,nacimiento,sexo,prevision_id,telefono,correo,direccion,pais,observacion1,observacion2,observacion3,apoderado,apoderado_rut,medicamentosUsados,habitos,comentariosAdicionales) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)';
+                const param = [nombre, apellido, rut, nacimiento, sexo, prevision_id, telefono, correo, direccion, pais, observacion1, observacion2, observacion3, apoderado, apoderado_rut, medicamentosUsados, habitos, comentariosAdicionales];
                 const resultado = await conexion.ejecutarQuery(query,param);
                 if (resultado){
                     return resultado;

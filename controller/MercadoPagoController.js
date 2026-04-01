@@ -241,7 +241,15 @@ export const recibirPago = async (req, res) => {
                                 reserva.telefono ?? 'NO INGRESADO',
                                 reserva.email ?? 'NO INGRESADO',
                                 '---',
-                                '---'
+                                '---',
+                                null,
+                                null,
+                                null,
+                                null,
+                                null,
+                                null,
+                                null,
+                                null
                             );
                             console.log("Paciente insertado/verificado para:", reserva.rut);
                         } catch (errPaciente) {

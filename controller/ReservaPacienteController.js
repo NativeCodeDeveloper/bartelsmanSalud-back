@@ -404,7 +404,7 @@ export default class ReservaPacienteController {
 
 
             const clasePacientes = new Pacientes();
-            const respuestaBackendPaciente = await clasePacientes.insertPacientemp(nombre,apellido,rut,nacimiento,sexo,prevision_id,telefono,correo,direccion,pais);
+            const respuestaBackendPaciente = await clasePacientes.insertPacientemp(nombre,apellido,rut,nacimiento,sexo,prevision_id,telefono,correo,direccion,pais,null,null,null,null,null,null,null,null);
 
             if (respuestaBackendPaciente.affectedRows > 0) {
                 console.log("Paciente ingresado correctamente desde reserva");
