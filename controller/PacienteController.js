@@ -132,10 +132,15 @@ export default class PacienteController {
             }
             const paciente = new Paciente();
             const resultado = await paciente.insertPaciente(nombre,apellido,rut,nacimiento,sexo,prevision_id,telefono,correo,direccion,pais,observacion1,observacion2,observacion3,apoderado,apoderado_rut,medicamentosUsados,habitos,comentariosAdicionales);
-            if (resultado.affectedRows > 0) {
-                res.status(200).json({message: true})
+
+            if(resultado.duplicado === true) {
+                return res.status(200).json({message : 'duplicado'})
+
+            }else if (resultado.affectedRows > 0) {
+                return res.status(200).json({message: true})
+
             }else{
-                res.status(200).json({message: false})
+                return res.status(200).json({message: false})
             }
         } catch (error) {
             res.status(500).json({

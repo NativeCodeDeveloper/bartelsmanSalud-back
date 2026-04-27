@@ -134,31 +134,40 @@ export default class Pacientes {
 
 // INSERCION DE NUEVO PACIENTE EN LA BASE DE DATOS
     async insertPaciente(nombre,apellido,rut,nacimiento,sexo,prevision_id,telefono,correo,direccion,pais,observacion1,observacion2,observacion3,apoderado,apoderado_rut,medicamentosUsados,habitos,comentariosAdicionales){
-        const conexion = DataBase.getInstance();
-        const query = 'INSERT INTO pacienteDatos (nombre,apellido,rut,nacimiento,sexo,prevision_id,telefono,correo,direccion,pais,observacion1,observacion2,observacion3,apoderado,apoderado_rut,medicamentosUsados,habitos,comentariosAdicionales) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)';
-        const param = [
-            nombre,
-            apellido,
-            rut,
-            nacimiento,
-            sexo,
-            prevision_id,
-            telefono,
-            correo,
-            direccion,
-            pais,
-            observacion1,
-            observacion2,
-            observacion3,
-            apoderado,
-            apoderado_rut,
-            medicamentosUsados,
-            habitos,
-            comentariosAdicionales];
-
         try {
-            const resultado = await conexion.ejecutarQuery(query,param);
-            if (resultado){
+        const conexion = DataBase.getInstance();
+
+        const consultaValidacionRut = `SELECT 1 FROM pacienteDatos WHERE rut = ? AND estado_paciente <> 0`;
+        const paramsRut = [rut];
+
+        const resultadoValidacion =  await conexion.ejecutarQuery(consultaValidacionRut,paramsRut)
+
+            if (resultadoValidacion.length > 0) {
+                return {duplicado: true}
+
+            }else{
+                const query = 'INSERT INTO pacienteDatos (nombre,apellido,rut,nacimiento,sexo,prevision_id,telefono,correo,direccion,pais,observacion1,observacion2,observacion3,apoderado,apoderado_rut,medicamentosUsados,habitos,comentariosAdicionales) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)';
+                const param = [
+                    nombre,
+                    apellido,
+                    rut,
+                    nacimiento,
+                    sexo,
+                    prevision_id,
+                    telefono,
+                    correo,
+                    direccion,
+                    pais,
+                    observacion1,
+                    observacion2,
+                    observacion3,
+                    apoderado,
+                    apoderado_rut,
+                    medicamentosUsados,
+                    habitos,
+                    comentariosAdicionales];
+
+                const resultado = await conexion.ejecutarQuery(query,param);
                 return resultado;
             }
         } catch (error) {
