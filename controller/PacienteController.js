@@ -144,11 +144,6 @@ export default class PacienteController {
         }
     }
 
-
-
-
-
-
     static async actualizarPaciente(req, res){
         try {
             const {
