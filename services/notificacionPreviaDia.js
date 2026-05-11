@@ -257,7 +257,7 @@ async function obtenerReservasParaRecordatorio() {
  * Formatea la fecha para mostrar en el correo
  */
 function formatearFecha(fechaStr) {
-    const fecha = new Date(fechaStr);
+    const fecha = new Date(fechaStr + "T00:00:00");
     const opciones = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
     return fecha.toLocaleDateString('es-CL', opciones);
 }
